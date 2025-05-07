@@ -1,0 +1,63 @@
+services:
+  auth-service:
+    build: 
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=auth-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=authdb
+      - JWT_SECRET=b2910f209acf00f251993c31afc9343cbb6e4e9c96497cd3775fef2263ad45f3
+    depends_on:
+      - auth-db
+
+  auth-db:
+    image: postgres:15
+    container_name: auth-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: authdb
+    ports:
+      - "5433:5432"
+    volumes:
+      - auth_db_data:/var/lib/postgresql/data
+
+  finance-service:
+    build: 
+      context: ./finance-service
+      dockerfile: Dockerfile
+    container_name: finance-service
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_HOST=finance-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=financedb
+    depends_on:
+      - finance-db
+
+  finance-db:
+    image: postgres:15
+    container_name: finance-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: financedb
+    ports:
+      - "5434:5432"
+    volumes:
+      - finance_db_data:/var/lib/postgresql/data
+
+volumes:
+  auth_db_data:
+  finance_db_data:
