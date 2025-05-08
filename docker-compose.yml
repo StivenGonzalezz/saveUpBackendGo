@@ -58,6 +58,36 @@ services:
     volumes:
       - finance_db_data:/var/lib/postgresql/data
 
+  expense-service:
+    build: 
+      context: ./expense-service
+      dockerfile: Dockerfile
+    container_name: expense-service
+    ports:
+      - "8082:8080"
+    environment:
+      - DB_HOST=expense-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=expensedb
+    depends_on:
+      - expense-db
+      
+  expense-db:
+    image: postgres:15
+    container_name: expense-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: expensedb
+    ports:
+      - "5435:5432"
+    volumes:
+      - expense_db_data:/var/lib/postgresql/data
+
 volumes:
   auth_db_data:
   finance_db_data:
+  expense_db_data:

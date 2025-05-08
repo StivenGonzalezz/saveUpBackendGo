@@ -2,3 +2,5 @@
 /auth-service/go.sum
 /finance-service/go.mod
 /finance-service/go.sum
+/expense-service/go.mod
+/expense-service/go.sum
