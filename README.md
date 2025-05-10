@@ -35,20 +35,22 @@ El backend de SaveUp sigue una arquitectura **Hexagonal (Ports and Adapters)**, 
 
 ## 📦 Estructura del Proyecto
 
+```plaintext
 saveup/
 │
 ├── auth-service/
-│ ├── cmd/
-│ ├── internal/
-│ │ ├── adapter/
-│ │ │ ├── http/
-│ │ │ │ ├── middleware/
-│ │ │ ├── repository/
-│ │ ├── domain/
-│ │ │ ├── model/
-│ │ │ ├── ports/
-│ │ ├── service/
-│ ├── pkg/ # Utilidades comunes
-│ ├── DockerFile/
+│   ├── cmd/
+│   ├── internal/
+│   │   ├── adapter/
+│   │   │   ├── http/
+│   │   │   │   ├── middleware/
+│   │   │   ├── repository/
+│   │   ├── domain/
+│   │   │   ├── model/
+│   │   │   ├── ports/
+│   │   ├── service/
+│   ├── pkg/               # Utilidades comunes
+│   ├── DockerFile/
 ├── etc-service/
 └── README.md
+
