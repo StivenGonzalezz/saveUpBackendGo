@@ -43,14 +43,14 @@ saveup/
 │   ├── internal/
 │   │   ├── adapter/
 │   │   │   ├── http/
-│   │   │   │   ├── middleware/
-│   │   │   ├── repository/
+│   │   │   │   └── middleware/
+│   │   │   └── repository/
 │   │   ├── domain/
 │   │   │   ├── model/
-│   │   │   ├── ports/
-│   │   ├── service/
+│   │   │   └── ports/
+│   │   └── service/
 │   ├── pkg/               # Utilidades comunes
-│   ├── DockerFile
+│   └── DockerFile
 ├── etc-service/
 ├── docker-compose.yml
 └── README.md
