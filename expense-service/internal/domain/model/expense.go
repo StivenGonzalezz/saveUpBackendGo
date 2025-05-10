@@ -1,10 +1,11 @@
-package expense
+package model
 
-type expense struct {
-	ID        uint `gorm:"primarykey"`
-	financeId uint
+type Expense struct {
+	ID          uint `gorm:"primarykey"`
+	FinanceId   uint
 	Description string
-	Amount float64
-	Icon string
-	CreatedAt string
+	Amount      float64
+	Icon        string
+	IsExpense   bool
+	CreatedAt   string
 }

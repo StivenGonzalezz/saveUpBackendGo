@@ -7,6 +7,7 @@ import (
 	"auth-service/pkg/jwt"
 	"errors"
 	"fmt"
+	"time"
 )
 
 type AuthService struct {
@@ -15,7 +16,9 @@ type AuthService struct {
 
 func (s *AuthService) Register(user *model.User) error {
 	hashPassword, _ := hash.HashPassword(user.Password)
-	user.Password = hashPassword  
+	user.Password = hashPassword 
+	createdAt := time.Now()
+	user.CreatedAt = createdAt.Format("2006-01-02") 
 	return s.Repo.Save(user)
 }
 

@@ -1,5 +1,5 @@
 # Dockerfile
-FROM golang:1.23-alpine
+FROM golang:1.24-alpine
 
 # Establece el directorio de trabajo
 WORKDIR /saveUp
