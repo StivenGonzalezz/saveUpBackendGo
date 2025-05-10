@@ -39,7 +39,7 @@ El backend de SaveUp sigue una arquitectura **Hexagonal (Ports and Adapters)**, 
 saveup/
 │
 ├── auth-service/
-│   ├── cmd/
+│   ├── cmd/ #main.go
 │   ├── internal/
 │   │   ├── adapter/
 │   │   │   ├── http/
@@ -50,7 +50,8 @@ saveup/
 │   │   │   ├── ports/
 │   │   ├── service/
 │   ├── pkg/               # Utilidades comunes
-│   ├── DockerFile/
+│   ├── DockerFile
 ├── etc-service/
+├── docker-compose.yml
 └── README.md
 
