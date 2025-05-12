@@ -1,6 +1,7 @@
 package jwt
 
 import (
+	"errors"
 	"os"
 	"time"
 
@@ -17,19 +18,19 @@ func GenerateToken(userID int) (string, error) {
 	return token.SignedString(secret)
 }
 
-func ValidateToken(tokenString string) (int, error) {
+func ValidateToken(tokenString string) (bool, error) {
 	token, err := jwt.ParseWithClaims(tokenString, jwt.MapClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return secret, nil
 	})
 	if err != nil {
-		return 0, err
+		return false, err
 	}
 	if !token.Valid {
-		return 0, errors.New("invalid token")
+		return false, errors.New("invalid token")
 	}
-	claims, ok := token.Claims.(jwt.MapClaims)
+	_, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
-		return 0, errors.New("invalid token")
+		return false, errors.New("invalid token")
 	}
-	return int(claims["user_id"]), nil
+	return true, nil
 }

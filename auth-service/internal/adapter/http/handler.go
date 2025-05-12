@@ -3,6 +3,7 @@ package http
 import (
 	"auth-service/internal/domain/model"
 	"auth-service/internal/service"
+	"auth-service/pkg/jwt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -21,7 +22,6 @@ func SetupRoutes(router *gin.Engine, authService *service.AuthService) {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error, could not register user", "error": err.Error()})
 			return
 		}
-
 		c.JSON(http.StatusCreated, gin.H{"message": "User created successfully", "user": &req})
 	})
 
@@ -52,5 +52,26 @@ func SetupRoutes(router *gin.Engine, authService *service.AuthService) {
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{"message": "User updated successfully", "user": &req})
+	})
+
+	router.POST("/validate", func(c *gin.Context){
+		tokenString := c.GetHeader("Authorization")
+		if tokenString == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"auth": "false"})
+			c.Abort()
+			return
+		}
+		isValid, err := jwt.ValidateToken(tokenString)
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"auth": "false"})
+			c.Abort()
+			return
+		}
+		if !isValid {
+			c.JSON(http.StatusUnauthorized, gin.H{"auth": "false"})
+			c.Abort()
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"auth": "true"})
 	})
 }
