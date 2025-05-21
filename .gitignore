@@ -4,3 +4,5 @@
 /finance-service/go.sum
 /expense-service/go.mod
 /expense-service/go.sum
+/goal-service/go.mod
+/goal-service/go.sum

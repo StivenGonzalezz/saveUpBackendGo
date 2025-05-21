@@ -87,7 +87,37 @@ services:
     volumes:
       - expense_db_data:/var/lib/postgresql/data
 
+  goal-service:
+    build: 
+      context: ./goal-service
+      dockerfile: Dockerfile
+    container_name: goal-service
+    ports:
+      - "8083:8083"
+    environment:
+      - DB_HOST=goal-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=goaldb
+    depends_on:
+      - goal-db
+      
+  goal-db:
+    image: postgres:15
+    container_name: goal-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: goaldb
+    ports:
+      - "5436:5432"
+    volumes:
+      - goal_db_data:/var/lib/postgresql/data
+
 volumes:
   auth_db_data:
   finance_db_data:
   expense_db_data:
+  goal_db_data:

@@ -22,6 +22,7 @@ func SetupRoutes(router *gin.Engine, expenseService *service.ExpenseService) {
 		err := expenseService.CreateExpense(&req)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error, could not create expense", "error": err.Error()})
+			return
 		}
 		c.JSON(http.StatusOK, gin.H{"message": "Expense created successfully", "expense": &req})
 	})
@@ -36,6 +37,7 @@ func SetupRoutes(router *gin.Engine, expenseService *service.ExpenseService) {
 		err = expenseService.DeleteExpense(uint(idInt))
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error, could not delete expense", "error": err.Error()})
+			return
 		}
 		c.JSON(http.StatusOK, gin.H{"message": "Expense deleted successfully"})
 	})
@@ -50,6 +52,7 @@ func SetupRoutes(router *gin.Engine, expenseService *service.ExpenseService) {
 		expenses, err := expenseService.GetExpensesByFinanceId(uint(financeIdInt))
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error, could not get expenses", "error": err.Error()})
+			return
 		}
 		c.JSON(http.StatusOK, gin.H{"message": "Expenses retrieved successfully", "expenses": expenses})
 	})
@@ -64,6 +67,7 @@ func SetupRoutes(router *gin.Engine, expenseService *service.ExpenseService) {
 		err := expenseService.CreateIncome(&req)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error, could not create income", "error": err.Error()})
+			return
 		}
 		c.JSON(http.StatusOK, gin.H{"message": "Income created successfully", "income": &req})
 	})
@@ -78,6 +82,7 @@ func SetupRoutes(router *gin.Engine, expenseService *service.ExpenseService) {
 		err = expenseService.DeleteIncome(uint(idInt))
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error, could not delete income", "error": err.Error()})
+			return
 		}
 		c.JSON(http.StatusOK, gin.H{"message": "Income deleted successfully"})
 	})
