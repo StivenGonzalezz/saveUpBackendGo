@@ -6,7 +6,6 @@ import (
 	"auth-service/pkg/hash"
 	"auth-service/pkg/jwt"
 	"errors"
-	"fmt"
 	"time"
 )
 
@@ -29,7 +28,6 @@ func (s *AuthService) Login(email, password string) (string, error) {
 	}
 
 	comparedSucces := hash.ComparePassword(user.Password, password)
-	fmt.Println(comparedSucces)
 	if comparedSucces != nil {
 		return "", errors.New("invalid password")
 	}
